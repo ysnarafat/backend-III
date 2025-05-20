@@ -7,5 +7,7 @@ public class Post
     public string Content { get; set; }
     public int UserId { get; set; }
     public User Author { get; set; }
+    
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<UserPostSupport> UserPostSupports { get; set; } = new List<UserPostSupport>(); 
 }

@@ -18,6 +18,7 @@ internal class Program
             options.UseNpgsql("Server=localhost;Port=5432;Database=blog-db;User Id=user;Password=p@ssw0rd;"));
 
         builder.Services.AddScoped<BlogContext>();
+        builder.Services.AddScoped<SupportStrategyFactory>();
         builder.Services.AddScoped<IPostService, PostService>();
         builder.Services.AddControllers();
 

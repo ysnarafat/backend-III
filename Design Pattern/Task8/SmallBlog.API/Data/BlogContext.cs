@@ -11,6 +11,7 @@ public class BlogContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<UserPostSupport> UserPostSupports { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,5 +26,20 @@ public class BlogContext : DbContext
             .WithMany()
             .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<UserPostSupport>(entity =>
+        {
+            entity.HasKey(e => new { e.SupporterId, e.PostId });
+
+            entity.HasOne(e => e.Supporter)
+                .WithMany()
+                .HasForeignKey(e => e.SupporterId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Post)
+                .WithMany()
+                .HasForeignKey(e => e.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }

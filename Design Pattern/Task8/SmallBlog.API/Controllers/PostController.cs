@@ -59,4 +59,13 @@ public class PostsController : ControllerBase
 
         return Ok(comment);
     }
+    
+    [HttpPost("{id}/support")]
+    public async Task<ActionResult<Comment>> SupportPost(int id, SupportPostDto dto)
+    {
+        dto.PostId = id;
+        var result = await _postService.SupportPostAsync(dto);
+        
+        return  result ? Ok() : BadRequest();
+    }
 }
