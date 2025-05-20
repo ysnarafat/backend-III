@@ -1,0 +1,15 @@
+@SmallBlog.API_HostAddress = http://localhost:5000
+
+POST http://localhost:5000/posts
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "My First Blog Post",
+  "content": "abcd"
+}
+
+
+
+###
