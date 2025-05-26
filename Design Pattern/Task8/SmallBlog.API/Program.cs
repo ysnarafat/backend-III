@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SmallBlog.API.Data;
 using Microsoft.EntityFrameworkCore;
+using SmallBlog.API.Models;
 using SmallBlog.API.Services;
 
 internal class Program
@@ -10,8 +11,6 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
         builder.Services.AddDbContext<BlogContext>(options =>
@@ -20,14 +19,14 @@ internal class Program
         builder.Services.AddScoped<BlogContext>();
         builder.Services.AddScoped<SupportStrategyFactory>();
         builder.Services.AddScoped<IPostService, PostService>();
+        builder.Services.AddScoped<ICacheService<Post, int>, PostCacheService>();
         builder.Services.AddControllers();
 
         var app = builder.Build();
 
-// Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            //app.MapOpenApi();
+            app.MapOpenApi();
         }
 
         using (var scope = app.Services.CreateScope())

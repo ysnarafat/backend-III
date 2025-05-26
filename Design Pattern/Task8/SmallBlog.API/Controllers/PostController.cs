@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmallBlog.API.Data;
 using SmallBlog.API.DTOs.Requests;
+using SmallBlog.API.DTOs.Responses;
 using SmallBlog.API.Models;
 using SmallBlog.API.Services;
 
@@ -40,6 +41,14 @@ public class PostsController : ControllerBase
     {
         return Ok();
     }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<PostDto>> GetPost(int id)
+    {
+        PostDto? post = await _postService.GetPostAsync(id);
+        
+        return post is not null ? Ok(post) : BadRequest(post);
+    }
 
     [HttpPost("{id}/comments")]
     public async Task<ActionResult<Comment>> AddComment(int id, CreateCommentDto dto)
@@ -61,7 +70,7 @@ public class PostsController : ControllerBase
     }
     
     [HttpPost("{id}/support")]
-    public async Task<ActionResult<Comment>> SupportPost(int id, SupportPostDto dto)
+    public async Task<ActionResult> SupportPost(int id, SupportPostDto dto)
     {
         dto.PostId = id;
         var result = await _postService.SupportPostAsync(dto);

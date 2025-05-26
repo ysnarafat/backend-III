@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmallBlog.API.Data;
 using SmallBlog.API.DTOs.Requests;
+using SmallBlog.API.DTOs.Responses;
 using SmallBlog.API.Models;
 
 namespace SmallBlog.API.Services;
@@ -9,11 +10,34 @@ public class PostService : IPostService
 {
     private readonly BlogContext _context;
     private readonly SupportStrategyFactory _supportStrategyFactory;
+    private readonly ICacheService<Post, int> _cacheService;
 
-    public PostService(BlogContext context, SupportStrategyFactory supportStrategyFactory)
+    public PostService(BlogContext context, 
+        SupportStrategyFactory supportStrategyFactory,
+        ICacheService<Post, int> cacheService)
     {
         _context = context;
         _supportStrategyFactory = supportStrategyFactory;
+        _cacheService = cacheService;
+    }
+
+    public async Task<PostDto> GetPostAsync(int id)
+    {
+        var post = await _cacheService.GetAsync(id);
+
+        if (post == null)
+        {
+            return null;
+        }
+
+        return new PostDto()
+        {
+            Id = post.Id,
+            Content = post.Content,
+            Title = post.Title,
+            AuthorId = post.Author.Id,
+            Author = post.Author.Name
+        };
     }
 
     public async Task<bool> SupportPostAsync(SupportPostDto dto)
