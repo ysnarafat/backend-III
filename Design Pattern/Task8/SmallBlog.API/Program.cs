@@ -22,6 +22,7 @@ internal class Program
         builder.Services.AddScoped<IPostService, PostService>();
         builder.Services.AddScoped<IPostService, PostService>();
         builder.Services.AddScoped<IHadithService, HadithService>();
+        builder.Services.AddScoped<IBundleService, BundleService>();
         builder.Services.AddScoped<ICacheService<Post, int>, PostCacheService>();
         builder.Services.AddControllers();
 

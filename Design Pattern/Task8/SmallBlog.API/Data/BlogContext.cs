@@ -12,6 +12,8 @@ public class BlogContext : DbContext
     public DbSet<Post> Posts { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<UserPostSupport> UserPostSupports { get; set; }
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Bundle> Bundles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,6 +41,21 @@ public class BlogContext : DbContext
             entity.HasOne(e => e.Post)
                 .WithMany()
                 .HasForeignKey(e => e.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        
+        modelBuilder.Entity<BookBundle>(entity =>
+        {
+            entity.HasKey(e => new { e.BookId, e.BundleId });
+
+            entity.HasOne(e => e.Book)
+                .WithMany(e => e.BookBundles)
+                .HasForeignKey(e => e.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Bundle)
+                .WithMany(e => e.BookBundles)
+                .HasForeignKey(e => e.BundleId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
