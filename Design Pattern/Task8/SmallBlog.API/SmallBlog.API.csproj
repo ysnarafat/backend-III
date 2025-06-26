@@ -21,4 +21,8 @@
       <Folder Include="Data\Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SmallBlog.External.AsSunnahFoundation\SmallBlog.External.AsSunnahFoundation.csproj" />
+    </ItemGroup>
+
 </Project>

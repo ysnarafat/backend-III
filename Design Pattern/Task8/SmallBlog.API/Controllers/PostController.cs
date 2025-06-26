@@ -8,7 +8,7 @@ using SmallBlog.API.Services;
 namespace SmallBlog.API.Controllers;
 
 [ApiController]
-[Route("posts")]
+[Route("api/posts")]
 public class PostsController : ControllerBase
 {
     private readonly BlogContext _context;
