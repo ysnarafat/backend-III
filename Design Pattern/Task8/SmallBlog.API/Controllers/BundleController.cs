@@ -4,14 +4,14 @@ using SmallBlog.API.Services;
 namespace SmallBlog.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]s")]
-public class BundleController(IBundleService service): ControllerBase
+[Route("api/bundles")]
+public class BundleController(IBundleService service) : ControllerBase
 {
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    [HttpGet("{bundleId}")]
+    public async Task<IActionResult> Get(int bundleId)
     {
-        var books = await service.GetBooks(id);
-        
+        var books = await service.GetBooksAsync(bundleId);
+
         return Ok(books);
     }
 }

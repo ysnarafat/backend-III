@@ -10,6 +10,6 @@ public class Book
     public string Publisher { get; set; }
     public int PageCount { get; set; }
     public DateTime PublishDate { get; set; }
-    
-    public ICollection<BookBundle> BookBundles { get; set; } = new List<BookBundle>();
+
+    public ICollection<Bundle> Bundles { get; set; } = new List<Bundle>();
 }

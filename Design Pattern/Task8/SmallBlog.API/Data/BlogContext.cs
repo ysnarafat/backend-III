@@ -3,7 +3,6 @@ using SmallBlog.API.Models;
 
 namespace SmallBlog.API.Data;
 
-// Data/BlogContext.cs
 public class BlogContext : DbContext
 {
     public BlogContext(DbContextOptions<BlogContext> options) : base(options) { }
@@ -14,6 +13,7 @@ public class BlogContext : DbContext
     public DbSet<UserPostSupport> UserPostSupports { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<Bundle> Bundles { get; set; }
+    public DbSet<BookBundle> BookBundles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,7 +28,7 @@ public class BlogContext : DbContext
             .WithMany()
             .HasForeignKey(c => c.UserId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<UserPostSupport>(entity =>
         {
             entity.HasKey(e => new { e.SupporterId, e.PostId });
@@ -43,20 +43,14 @@ public class BlogContext : DbContext
                 .HasForeignKey(e => e.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
-        
-        modelBuilder.Entity<BookBundle>(entity =>
-        {
-            entity.HasKey(e => new { e.BookId, e.BundleId });
 
-            entity.HasOne(e => e.Book)
-                .WithMany(e => e.BookBundles)
-                .HasForeignKey(e => e.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(e => e.Bundle)
-                .WithMany(e => e.BookBundles)
-                .HasForeignKey(e => e.BundleId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Bundles)
+            .WithMany(bu => bu.Books)
+            .UsingEntity<BookBundle>(
+                x => x.HasOne(bb => bb.Bundle).WithMany().HasForeignKey(bb => bb.BundleId),
+                x => x.HasOne(bb => bb.Book).WithMany().HasForeignKey(bb => bb.BookId),
+                x => x.HasKey(bb => new { bb.BookId, bb.BundleId })
+            );
     }
 }

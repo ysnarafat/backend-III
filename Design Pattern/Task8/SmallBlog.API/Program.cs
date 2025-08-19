@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SmallBlog.API.Data;
-using Microsoft.EntityFrameworkCore;
 using SmallBlog.API.Models;
 using SmallBlog.API.Services;
-using SmallBlog.External.AsSunnahFoundation;
 
 internal class Program
 {
@@ -24,6 +21,7 @@ internal class Program
         builder.Services.AddScoped<IHadithService, HadithService>();
         builder.Services.AddScoped<IBundleService, BundleService>();
         builder.Services.AddScoped<ICacheService<Post, int>, PostCacheService>();
+        builder.Services.AddScoped<ICacheService<Bundle, int>, BundleCacheService>();
         builder.Services.AddControllers();
 
         var app = builder.Build();

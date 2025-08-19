@@ -1,4 +1,4 @@
-@host = http://localhost:5000
+@host = http://localhost:5047
 
 POST {{host}}/api/posts
 Accept: application/json

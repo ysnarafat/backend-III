@@ -1,25 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmallBlog.API.Data;
+﻿using SmallBlog.API.Data;
 using SmallBlog.API.Models;
 
 namespace SmallBlog.API.Services;
 
-public class BundleService: IBundleService
+public class BundleService : IBundleService
 {
     private readonly BlogContext _context;
+    private readonly ICacheService<Bundle, int> _cacheService;
 
-    public BundleService(BlogContext context)
+    public BundleService(BlogContext context, ICacheService<Bundle, int> cacheService)
     {
         _context = context;
+        _cacheService = cacheService;
     }
 
-    public async Task<IEnumerable<Book>> GetBooks(int bundleId)
+    public async Task<IEnumerable<Book>> GetBooksAsync(int bundleId)
     {
-        var bundle = await _context.Bundles
-            .Include(x => x.BookBundles)
-            .ThenInclude(x => x.Book)
-            .FirstOrDefaultAsync(x => x.Id == bundleId);
+        var bundle = await _cacheService.GetAsync(bundleId);
 
-        return bundle?.BookBundles?.Select(x => x.Book) ?? [];
+        return bundle?.Books.Select(x =>
+        {
+            x.Bundles = [];
+
+            return x;
+        }) ?? [];
     }
 }
