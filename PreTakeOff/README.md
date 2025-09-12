@@ -70,12 +70,7 @@ Consider existing solutions, caching, and scaling.
 
 **Instruction:**  
 Implement an OAuth client with authorization code flow.
-
-**Notes / Approach:**  
-- Redirect user to Keycloak login.  
-- Receive `authorization_code`.  
-- Exchange code for access token via backend call.  
-- Store token securely for API requests.  
+ 
 
 ---
 
@@ -84,19 +79,9 @@ Implement an OAuth client with authorization code flow.
 **Instruction:**  
 Write unit/integration tests for OAuth client.
 
-**Notes / Approach:**  
-- Mock HTTP requests to Keycloak.  
-- Test token exchange, token refresh, and failure cases.  
-- Ensure proper exception handling for invalid codes.  
-
 ---
 
 ## **Task 10: Cost Projection Calculator**
 
 **Scenario:**  
 For the nationwide result system (Task 7), design a calculator to project costs according to request numbers, considering ready-made solutions and in-house components.
-
-**Notes / Approach:**  
-- Output: Cost breakdown for cloud hosting, caching, database, and application servers.  
-- Consider scaling policies and SLA requirements.  
-- Use formulas to combine cloud services and on-premise costs.  
