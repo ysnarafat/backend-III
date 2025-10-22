@@ -1,0 +1,15 @@
+@AuthBackend_HostAddress = http://localhost:5148
+
+### Upload CSV file
+POST http://localhost:5148/upload-csv
+Accept: */*
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="test.csv"
+Content-Type: text/csv
+
+< ./path-to-the-file
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+

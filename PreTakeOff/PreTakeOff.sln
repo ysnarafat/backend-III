@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempControlSytem", "Thermos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportSystem", "ExportSystem\ExportSystem.csproj", "{B811BFE7-C144-4A5C-A34C-F124B5944F79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAuthBackend", "AuthBackend\UserAuthBackend.csproj", "{D1185B9B-5538-47F8-80C1-2039B9BADC99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{B811BFE7-C144-4A5C-A34C-F124B5944F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B811BFE7-C144-4A5C-A34C-F124B5944F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B811BFE7-C144-4A5C-A34C-F124B5944F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1185B9B-5538-47F8-80C1-2039B9BADC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1185B9B-5538-47F8-80C1-2039B9BADC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1185B9B-5538-47F8-80C1-2039B9BADC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1185B9B-5538-47F8-80C1-2039B9BADC99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
